@@ -9,29 +9,33 @@ title: Communication | R4 API
 
 ## Overview
 
-The Provenance resource tracks the source of external data and is used to assess the trustworthiness and reliability of a resource. Sources can be an organization author or organization transmitter.  Entities are Continuity of Care DocumentReferences (CCDs).
+The Communication resource ....
 
 The following fields are returned if valued:
 
-* [Provenance id](https://hl7.org/fhir/R4/resource-definitions.html#Resource.id){:target="_blank"}
-* [Target](https://hl7.org/fhir/R4/provenance-definitions.html#Provenance.target){:target="_blank"}
-* [Recorded](https://hl7.org/fhir/R4/provenance-definitions.html#Provenance.recorded){:target="_blank"}
-* [Agent type (author or transmitter)](https://hl7.org/fhir/R4/provenance-definitions.html#Provenance.agent.type){:target="_blank"}
-* [Agent role (source or informant)](https://hl7.org/fhir/R4/provenance-definitions.html#Provenance.agent.role){:target="_blank"}
-* [Agent who (Practitioner, Device, or Organization)](https://hl7.org/fhir/R4/provenance-definitions.html#Provenance.agent.who){:target="_blank"}
-* [Agent on behalf of](https://hl7.org/fhir/R4/provenance-definitions.html#Provenance.agent.onBehalfOf){:target="_blank"}
-* [Entity role](https://hl7.org/fhir/R4/provenance-definitions.html#Provenance.entity.role){:target="_blank"}
-* [Entity what (Continuity of Care DocumentReference id)](https://hl7.org/fhir/R4/provenance-definitions.html#Provenance.entity.what){:target="_blank"}
+* [Communication Id](https://hl7.org/FHIR/communication-definitions.html#Communication.identifier)
+* [In Response To](https://hl7.org/FHIR/communication-definitions.html#Communication.inResponseTo)
+* [Status (Completed)](https://hl7.org/FHIR/communication-definitions.html#Communication.status)
+* [Communication (Category Message, Reminder, Coding Query)](https://hl7.org/FHIR/communication-definitions.html#Communication.category)
+* [Priority](https://hl7.org/FHIR/communication-definitions.html#Communication.priority)
+* [Subject](https://hl7.org/FHIR/communication-definitions.html#Communication.subject)
+* [Topic](https://hl7.org/FHIR/communication-definitions.html#Communication.topic)
+* [Encounter](https://hl7.org/FHIR/communication-definitions.html#Communication.encounter)
+* [Recieved](https://hl7.org/FHIR/communication-definitions.html#Communication.received)
+* [Recipient](https://hl7.org/FHIR/communication-definitions.html#Communication.recipient)
+* [Sent](https://hl7.org/FHIR/communication-definitions.html#Communication.sent)
+* [Sender](https://hl7.org/FHIR/communication-definitions.html#Communication.sender)
+* [Payload](https://hl7.org/FHIR/communication-definitions.html#Communication.payload)
 
 ## Terminology Bindings
 
-<%= terminology_table(:provenance, :r4) %>
+<%= terminology_table(:communication, :r4) %>
 
 ## Search
 
-Search for Provenances that meet supplied query parameters:
+Search for Communications that meet supplied query parameters:
 
-    GET /Provenance?:parameters
+    GET /Communication?:parameters
 
 ### Authorization Types
 
@@ -41,8 +45,7 @@ Search for Provenances that meet supplied query parameters:
 
  Name         | Required? | Type          | Description
 --------------|-----------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------
- `_id`        | This or `target` | [`token`]     | The logical resource id associated with the resource. Example: `doc-7845`
- `target`     | This or `_id` | [`reference`] | Target Reference(s) (usually version specific). Example: `DocumentReference/66547`
+ `_id`        | This or `todo` | [`token`]     | The logical resource id associated with the resource. Example: `C-1123_0`
 
 ### Headers
 
@@ -52,12 +55,12 @@ Search for Provenances that meet supplied query parameters:
 
 #### Request
 
-    GET https://fhir-open.sandboxcerner.com/r4/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Provenance?_id=doc-881057
+    GET https://fhir-open.sandboxcerner.com/r4/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Communication?_id=C-1123_0
 
 #### Response
 
 <%= headers status: 200 %>
-<%= json(:r4_provenance_bundle) %>
+
 
 <%= disclaimer %>
 
@@ -67,9 +70,9 @@ The common [errors] and [OperationOutcomes] may be returned.
 
 ## Retrieve by id
 
-List an individual Provenance by its id:
+List an individual Communication by its id:
 
-    GET /Provenance/:id
+    GET /Communication/:id
 
 ### Authorization Types
 
@@ -83,12 +86,12 @@ List an individual Provenance by its id:
 
 #### Request
 
-    GET https://fhir-open.sandboxcerner.com/r4/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Provenance/doc-881057
+    GET https://fhir-open.sandboxcerner.com/r4/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Communication/C-1123_0
 
 #### Response
 
 <%= headers status: 200 %>
-<%= json(:r4_provenance_entry) %>
+
 
 <%= disclaimer %>
 
@@ -98,9 +101,9 @@ The common [errors] and [OperationOutcomes] may be returned.
 
 ## Create
 
-Create a new Provenance.
+Create a new Communication.
 
-    POST /Provenance
+    POST /Communication
 
 _Implementation Notes_
 
@@ -117,17 +120,17 @@ _Implementation Notes_
 
 ### Body Fields
 
-<%= definition_table(:provenance, :create, :r4) %>
+<%= definition_table(:communication, :create, :r4) %>
 
 ### Example
 
 #### Request
 
-    POST https://fhir-ehr.sandboxcerner.com/r4/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Provenance
+    POST https://fhir-ehr.sandboxcerner.com/r4/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Communication
 
 #### Body
 
-<%= json(:r4_provenance_create) %>
+
 
 #### Response
 
@@ -138,7 +141,7 @@ Content-Length: 0
 Content-Type: text/html
 Date: Tue, 31 Mar 2020 15:37:25 GMT
 Etag: W/"881057"
-Location: https://fhir-ehr.sandboxcerner.com/r4/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Provenance/doc-881057
+Location: https://fhir-ehr.sandboxcerner.com/r4/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Communication/C-1123_0
 Last-Modified: Tue, 31 Mar 2020 15:37:25 GMT
 Server-Response-Time: 296.405243
 Status: 201 Created
