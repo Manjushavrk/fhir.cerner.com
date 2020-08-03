@@ -1,0 +1,196 @@
+name: Communication
+field_name_base_url: http://hl7.org/fhir/r4/communication-definitions.html#Communication
+fields:
+- name: resourceType
+  required: 'Yes'
+  cardinality: 1..1
+  type: string
+  description: The type of the FHIR resource.
+  url: https://hl7.org/fhir/r4/Communication-definitions.html#Communication
+  note: resourceType must be Communication.
+  example: |
+    {
+      "resourceType": "Communication"
+    }
+  action:
+    - create
+
+- name: inResponseTo
+  required: 'no'
+  cardinality: 0..1
+  type: Reference(Communication)
+  description: The Communication this Communication is in response to.
+  url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.inResponseTo
+  note: 
+  example: |
+    {
+      "inResponseTo": {
+        "reference": "Communication/23456_45678",
+        "type": "Communicaiton"
+      }
+    }
+  action:
+    - create
+
+- name: status
+  required: 'Yes'
+  cardinality: 1..1
+  type: code
+  description: The status of the communication
+  url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.status
+  action: create
+  note: As Millenniums Message Center Communicaitons are instantaneously delivered, all communications must be in a "completed" status
+  example: |
+    {
+      "status": "completed""
+    }
+
+- name: category
+  required: 'yes'
+  cardinality: 0..1
+  type: CodeableConcept
+  description: Codeable definition of the Communication Type
+  url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.category
+  note: Message Center Workflows support the categories Message, Reminder, and Coding Queries.  Coding Queries are a Sub-Type of Messages.
+  example: | 
+    {
+      category:
+        {
+          coding: [{
+            "system": "http://terminology.hl7.org/CodeSystem/communication-category",
+            "code": "coding_query"
+        }]
+    }
+  action:
+    - create
+
+- name: priority
+  required: 'No'
+  cardinality: 0..1
+  type: CodeableConcept
+  description: The priority of the Communication
+  url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.priority
+  action: create
+  note: Millennium only supports Routine and High Prioirities.  Any Priority given other than Routine will be translated to High.  If not provided, the Communication will be treated as Routine.
+  example: |
+    {
+      "priority": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/communiucation.priority",
+            "code": "routine"
+          }
+        ]
+      }
+    }
+
+- name: subject
+  required: 'No'
+  cardinality: 0..1
+  type: Reference(Patient)
+  description: The Patient that is the Subject to the Communicatiion
+  url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.subject
+  action: update
+  note: Millennium only supports Patient References for the Subject
+  example: |
+    {
+      "subject": {
+        "reference": "Patient/9836548",
+        "type": "Patient"
+      }
+    }
+
+
+- name: topic
+  required: 'yes'
+  cardinality: 0..1
+  type: code
+  description: The topic of the Communication.  Simalar to the subject of an email
+  url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.topic
+  note: Millennium Message Center only supports Free Text Topics.
+  example: |
+    {
+      "topic" : {
+         "text": "Patient Consult Request"
+      }
+    }
+  action:
+    - create
+
+
+- name: encounter
+  required: 'No'
+  cardinality: 0..1
+  type: Reference(Encounter)
+  description: The specific Patient Encounter associated to the Communcation
+  url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.encounter
+  example: |
+    {
+      "encounter" : {
+        "reference" : "Encounter/89363836",
+        "type" : "Encounter"
+      }
+    }
+  action:
+    - create
+
+- name: recipient
+  required: 'Yes'
+  cardinality: 1..*
+  type: Reference(Practitioner/Group)
+  description: The Practitioner or Pool (Group) that the communication is intended to reach
+  url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.recipient
+  note: At least one recipient needs to be provided
+  example: |
+    {
+      "recipient": [
+        {
+          "reference" : "Practitioner/6373634",
+          "type" : "Practitioner"
+        },
+        {
+          "reference" : "Group/44466678",
+          "type" : "Group"
+        }
+      ]
+    }
+  action:
+      - create
+
+- name: sender
+  required: 'Yes'
+  cardinality: 1..1
+  type: Reference
+  description: The Practitioner sending the Message
+  url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.sender
+  note: Sender must be a Practitioner
+  example: |
+    {
+      "sender": {
+        "reference": "Practitioner/631923",
+        "type" : "Practitioner"
+      }
+    }
+  action:
+    - create
+
+- name: payload
+  required: 'Yes'
+  cardinality: 1..1
+  type: BackboneElement
+  description: The text of the communication
+  url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.payload
+  note: Content must be supplied as a content[Attachment] object with the contentType and data defined.  For contentType, application/xhtml+xml or text/plain are allowable. data should be base64 encoded.
+  example: |
+    {
+      "payload" : [
+        {
+          "contentAttachment" : {
+            "contentType" : "application/xhtml+xml",
+            "data" : "&lt;snipped for brevity"
+          }
+        }
+      ]
+    }
+  action:
+    - create
