@@ -1,3 +1,4 @@
+---
 name: Communication
 field_name_base_url: http://hl7.org/fhir/r4/communication-definitions.html#Communication
 fields:
@@ -44,7 +45,6 @@ fields:
     {
       "status": "completed""
     }
-
 - name: category
   required: 'yes'
   cardinality: 0..1
@@ -83,7 +83,6 @@ fields:
         ]
       }
     }
-
 - name: subject
   required: 'No'
   cardinality: 0..1
@@ -99,8 +98,6 @@ fields:
         "type": "Patient"
       }
     }
-
-
 - name: topic
   required: 'yes'
   cardinality: 0..1
