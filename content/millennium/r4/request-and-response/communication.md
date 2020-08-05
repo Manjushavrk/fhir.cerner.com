@@ -152,13 +152,13 @@ _Implementation Notes_
 #### Response
 
 <%= headers status: 201 %>
+ <!-- The location header: (https://fhir-ehr.sandboxcerner.com/r4/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Communication/C-123_0) may not be returned, discussion is ongoing. --->
 <pre class="terminal">
 Cache-Control: no-cache
 Content-Length: 0
 Content-Type: application/json
 Date: Tue, 04 Aug 2020 17:59:03 GMT
 Etag: W/"0"
-Location: https://fhir-ehr.sandboxcerner.com/r4/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Communication/C-123_0
 Last-Modified: Tue, 04 Aug 2020 17:59:03 GMT
 Server-Response-Time: 22.810143
 Status: 201 Created

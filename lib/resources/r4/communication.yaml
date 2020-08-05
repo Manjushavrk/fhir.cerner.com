@@ -101,6 +101,7 @@ fields:
   required: 'No'
   cardinality: 0..1
   type: Reference (Encounter)
+  note: Encounter must be supplied with Subject.
   description: The specific Patient Encounter associated to the Communcation.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.encounter
   example: |
