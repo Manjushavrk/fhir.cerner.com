@@ -9,12 +9,11 @@ title: Communication | R4 API
 
 ## Overview
 
-The Communication resource is a conveyance of information from one entity, a sender, to another entity, a receiver. The information includes encoded data and optionally a related Patient and/or a related Encounter.
+The Communication resource is a conveyance of information from one entity, a sender, to another entity, a receiver. The information includes encoded data and optionally a related Patient and a related Encounter.
 
 The following fields are returned if valued:
 
 * [Communication Id](https://hl7.org/FHIR/communication-definitions.html#Communication.identifier)
-* [In Response To](https://hl7.org/FHIR/communication-definitions.html#Communication.inResponseTo)
 * [Status (Completed)](https://hl7.org/FHIR/communication-definitions.html#Communication.status)
 * [Communication (Category Message, Reminder, Coding Query)](https://hl7.org/FHIR/communication-definitions.html#Communication.category)
 * [Priority](https://hl7.org/FHIR/communication-definitions.html#Communication.priority)
@@ -37,11 +36,10 @@ The following fields are returned if valued:
 
 All URLs for custom extensions are defined as `https://fhir-ehr.cerner.com/r4/StructureDefinition/{id}`
 
-ID             | Value\[x] Type    | Description
----------------|-------------------|----------------------------------------------------------------------------------
-`reply-to`     | [`Reference`]     | Used to direct where replies to the communications should be sent. Must be a Reference(Group)
-`email-status` | [`Code`]          | Status of the electronic communication (Pending, Opened, Deleted)
-
+ID             | Value\[x] Type      | Description
+---------------|---------------------|----------------------------------------------------------------------------------
+`reply-to`     | [`Reference`]       | Used to direct where replies to the communications should be sent. Must be a Reference(Group)
+`email-status` | [`CodeableConcept`] | Status of the electronic communication (in-progress, completed, received)
 
 ## Search
 
@@ -51,8 +49,9 @@ Search for Communications that meet supplied query parameters:
 
 _Implementation Notes_
 
-* The Content of a communication will be returned through the Binary Resource. A refernece to the payload will be provided in the Payload seciton.
+* The Content of a communication will be returned through the Binary Resource. A reference to the payload will be provided in the Payload section.
 * All Coding Querys are also Messages. A search for the category of Messages will return Coding Queries as part of the response bundle. A search for the category of Coding Queries will return items that have both the category of Coding Query and Message.
+* Only 1000 elements max will be returned based in the date range.
 
 ### Authorization Types
 
@@ -60,14 +59,17 @@ _Implementation Notes_
 
 ### Parameters
 
- Name         | Required? | Type          | Description
---------------|-----------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------
- `_id`        | This or `category` or `recipient` | [`token`]     | The logical resource id associated with the resource. Example: `C-1123_0`
- `category`   | This or `_id` or `recipient` | [`token`] | A token for a [`CodeableConcept`] that points to the Codeable concept used for Communiation.category. 
- `recipient`  | This or `_id` or `category` | [`reference`] | The recipient of the Communication. Must represent a Practitioner or a Group. May use the `:Practitioner` modifier or the `:Group` modifier. Example: `recipient=Practitioner/3456783` or `recipient:Group=8765556`
- `recieved`   | No | [`date`] | The date/time when the Communication was recieved by the recipient. Must use the `ge` and/or `le` prefixes. Example: `recieved=le2017-02-01T10:30:00Z`
+ Name         | Required?                                       | Type          | Description
+--------------|-------------------------------------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------
+ `_id`        | This or `category` or `recipient` or `received` | [`token`]     | The logical resource id associated with the resource. Example: `C-1123_0`
+ `category`   | This or `_id` or `recipient` or `received`      | [`token`]     | A token for a [`CodeableConcept`] that points to the CodeableConcept used for Communiation.category. Example: `category=reminder`
+ `recipient`  | This or `_id` or `category`  or `received`      | [`reference`] | The recipient of the Communication. Example: `recipient=Practitioner/3456783` or `recipient:Group=8765556`
+ `recieved`   | This or `_id` or `category`  or `recipient`     | [`date`]      | Date range into which the communication falls. Example: `recieved=le2017-02-01T10:30:00Z` or `received=ge2020-03-16T21:31:35.458Z&received=le2020-07-16T21:31:35.457Z"`
 
- Note: The below example includes non-normative data. Querying sandbox using the given URLs may not return valid data.
+ Notes:
+
+ * The `recipient` parameter must represent a Practitioner or a Group and may use the `:Group` modifier.
+ * The `recieved` parameter must use the `ge` and/or `le` prefixes.
 
 ### Headers
 
@@ -123,7 +125,6 @@ The common [errors] and [OperationOutcomes] may be returned.
 [`reference`]: https://hl7.org/fhir/R4/search.html#reference
 [`token`]: https://hl7.org/fhir/R4/search.html#token
 [`date`]: http://hl7.org/fhir/R4/search.html#date
-[`code`]: http://hl7.org/fhir/R4/datatypes.html#code
 [`CodeableConcept`]: http://hl7.org/fhir/R4/datatypes.html#codeableconcept
 [errors]: ../../#client-errors
 [OperationOutcomes]: https://hl7.org/fhir/R4/operationoutcome.html
