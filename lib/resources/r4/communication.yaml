@@ -9,12 +9,11 @@ fields:
   description: The type of the FHIR resource.
   url: https://hl7.org/fhir/r4/Communication-definitions.html#Communication
   note: resourceType must be Communication.
+  action: create
   example: |
     {
       "resourceType": "Communication"
     }
-  action:
-    - create
 
 - name: status
   required: 'Yes'
@@ -23,7 +22,7 @@ fields:
   description: The status of the Communication.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.status
   action: create
-  note: As Millenniums Message Center Communicaitons are instantaneously delivered, all communications must be in a "completed" status
+  note: All Communications must be in "completed" status.
   example: |
     {
       "status": "completed"
@@ -57,11 +56,11 @@ fields:
 - name: priority
   required: 'No'
   cardinality: 0..1
-  type: code
-  description: The priority of the Communication
+  type: CodeableConcept
+  description: The priority of the Communication.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.priority
   action: create
-  note: Millennium only supports Routine and High Priorities. Any Priority given other than Routine will be translated to High. If not provided, the Communication will be treated as Routine.
+  note: Only "routine" and "high" priorities are supported. If another priority value is provided, it will be treated as "routine".
   example: |
     {
       "priority": {
@@ -77,11 +76,11 @@ fields:
 - name: subject
   required: 'No'
   cardinality: 0..1
-  type: Reference(Patient)
+  type: Reference (Patient)
   description: The Patient that is the Subject of the Communication
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.subject
-  action: update
-  note: Millennium only supports Patient References for the Subject
+  action: create
+  note: Only Patient is supported as subject.
   example: |
     {
       "subject": {
@@ -94,9 +93,9 @@ fields:
   required: 'yes'
   cardinality: 0..1
   type: code
-  description: The topic of the Communication. Similar to the subject of an email
+  description: The topic of the Communication, similar to the subject field of an email.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.topic
-  note: Millennium Message Center only supports Free Text Topics.
+  note: Currently only free-text topics are supported.
   example: |
     {
       "topic" : {
@@ -109,8 +108,8 @@ fields:
 - name: encounter
   required: 'No'
   cardinality: 0..1
-  type: Reference(Encounter)
-  description: The specific Patient Encounter associated to the Communication
+  type: Reference (Encounter)
+  description: The specific Patient Encounter associated to the Communcation.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.encounter
   example: |
     {
@@ -125,10 +124,10 @@ fields:
 - name: recipient
   required: 'Yes'
   cardinality: 1..*
-  type: Reference(Practitioner/Group)
+  type: Reference (Practitioner, Group)
   description: The Practitioner or Pool (Group) that the communication is intended to reach
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.recipient
-  note: At least one recipient needs to be provided
+  note: At least one recipient needs to be provided.
   example: |
     {
       "recipient": [
@@ -148,10 +147,10 @@ fields:
 - name: sender
   required: 'Yes'
   cardinality: 1..1
-  type: Reference
-  description: The Practitioner sending the Message
+  type: Reference (Practitioner)
+  description: The entity sending the Communication.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.sender
-  note: Sender must be a Practitioner
+  note: Sender must be a Practitioner.
   example: |
     {
       "sender": {
@@ -180,5 +179,30 @@ fields:
         }
       ]
     }
-  action:
-    - create
+  action: create
+
+- name: Communication Email-Status Extension
+  terminology_name: extension[x].valueCodeableConcept
+  required: 'No'
+  type: CodeableConcept
+  description: Status extension for Communication
+  action: create
+  example: |
+    {
+      "url": "https://fhir-ehr.cerner.com/r4/StructureDefinition/email-status",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "code": "in-progress",
+            "system": "https://www.hl7.org/fhir/codesystem-task-status.html"
+          }
+        ]
+      }
+    }
+  url: https://fhir-ehr.cerner.com/r4/StructureDefinition/email-status?_format=json
+  binding:
+    description: Communication Email Status Extension
+    terminology:
+    - display: Communication Email Status Extension
+      system: https://www.hl7.org/fhir/codesystem-task-status.html
+      info_link: https://www.hl7.org/fhir/valueset-task-status.html

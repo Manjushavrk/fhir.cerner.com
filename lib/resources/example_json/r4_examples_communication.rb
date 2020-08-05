@@ -94,5 +94,56 @@ module Cerner
       ]
     }
 
+    R4_COMMUNICATION_CREATE ||= {
+      "resourceType": "Communication",
+      "status": "completed",
+      "category": [{ 	
+          "coding": [{
+              "system": "http://terminology.hl7.org/CodeSystem/communication-category",
+              "code": "reminder",
+              "display": "Reminder"
+          }],
+          "text": "Reminder"
+      }],
+      "priority": "urgent",
+      "subject": { 
+          "reference": "Patient/234455"
+      },
+      "topic": {
+          "coding": [{
+              "system": "http://example.com",
+              "code": "code"
+          }],
+          "text": "CDS Query"
+      },
+      "encounter": { 
+          "reference": "Encounter/87648476" 
+      }, 
+      "recipient": [
+          {  
+              "reference": "Practitioner/746484674"
+          },
+          {
+              "reference": "Practitioner/6345478364"
+          }
+      ],
+      "sender": {
+          "reference": "Practitioner/3464537365"
+      },
+      "payload": [{ 
+          "contentAttachment": { 
+              "contentType": "text/plain",
+              "data": "Y29tbXVuaWNhaXRvbkA="
+          }
+      }],
+      "extension": [
+          {
+              "url": "https://fhir-ehr.cerner.com/r4/StructureDefinition/reply-to",
+              "valueReference": {
+                  "reference": "Group/888444"
+              }
+          }
+      ]
+  }  
   end
 end
