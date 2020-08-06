@@ -61,7 +61,7 @@ _Implementation Notes_
  Name         | Required?                                       | Type          | Description
 --------------|-------------------------------------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------
  `_id`        | This or `category` or `recipient` or `received` | [`token`]     | The logical resource id associated with the resource. Example: `C-1123_0`
- `category`   | This or `_id` or `recipient` or `received`      | [`token`]     | A token for a [`CodeableConcept`] that points to the CodeableConcept used for Communiation.category. Example: `category=reminder`
+ `category`   | This or `_id` or `recipient` or `received`      | [`token`]     | A token for a [`CodeableConcept`] that points to the CodeableConcept used for Communiation.category. Example: `category=reminder` or `category=notification`
  `recipient`  | This or `_id` or `category`  or `received`      | [`reference`] | The recipient of the Communication. Example: `recipient=Practitioner/3456783` or `recipient:Group=8765556`
  `recieved`   | This or `_id` or `category`  or `recipient`     | [`date`]      | Date range into which the communication falls. Example: `recieved=le2017-02-01T10:30:00Z` or `received=ge2020-03-16T21:31:35.458Z&received=le2020-07-16T21:31:35.457Z"`
 
@@ -119,7 +119,6 @@ List an individual Communication by its id:
 ### Errors
 
 The common [errors] and [OperationOutcomes] may be returned.
-
 
 [`reference`]: https://hl7.org/fhir/R4/search.html#reference
 [`token`]: https://hl7.org/fhir/R4/search.html#token
