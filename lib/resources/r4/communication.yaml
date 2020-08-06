@@ -45,24 +45,31 @@ fields:
     {
       "status": "completed""
     }
+
 - name: category
   required: 'yes'
   cardinality: 0..1
   type: CodeableConcept
-  description: Codeable definition of the Communication Type
+  description: Codeable definition of the Communication type.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.category
-  note: Message Center Workflows support the categories Message, Reminder, and Coding Queries.  Coding Queries are a Sub-Type of Messages.
+  note: The catgeories 'notification' and 'reminder' are supported.
   example: | 
     {
       category:
         {
           coding: [{
             "system": "http://terminology.hl7.org/CodeSystem/communication-category",
-            "code": "coding_query"
-        }]
+            "code": "notification"
+          }]
+        }
     }
-  action:
-    - create
+  action: create
+  binding:
+    description: The category of the Communication.
+    terminology:
+      - display: Communication Category
+        system: http://terminology.hl7.org/CodeSystem/communication-category
+        info_link: http://hl7.org/fhir/R4/valueset-communication-category.html
 
 - name: priority
   required: 'No'
