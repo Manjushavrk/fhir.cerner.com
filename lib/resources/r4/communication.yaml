@@ -174,7 +174,7 @@ fields:
   terminology_name: extension[x].valueCodeableConcept
   required: 'No'
   type: CodeableConcept
-  description: Status extension for the Communication.
+  description: The status of the email.  May be received, in-progress or completed.
   action: create
   example: |
     {
@@ -190,7 +190,7 @@ fields:
     }
   url: https://fhir-ehr.cerner.com/r4/StructureDefinition/email-status?_format=json
   binding:
-    description: A status extension for the Communication.
+    description: The status of the email.  May be received, in-progress or completed.
     terminology:
     - display: Communication Email Status Extension
       system: http://hl7.org/fhir/task-status
