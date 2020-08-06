@@ -168,7 +168,7 @@ fields:
   type: BackboneElement
   description: The message content of the communication
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.payload
-  note: Content must be supplied as a content[Attachment] object with the contentType and Data defined. For contentType, application/xhtml+xml or text/plain are allowable. data should be base64 encoded.
+  note: Content must be supplied as a content[Attachment] object with the contentType and data defined. For contentType, application/xhtml+xml or text/plain are allowable. Data should be base64 encoded.
   example: |
     {
       "payload" : [
