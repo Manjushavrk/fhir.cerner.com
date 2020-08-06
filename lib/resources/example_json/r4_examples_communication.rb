@@ -10,7 +10,7 @@ module Cerner
       },
       "text": {
           "status": "generated",
-          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Communication</b></p></div>"
+          "div": "&lt;div xmlns=\"http://www.w3.org/1999/xhtml\">&lt;p>&lt;b>Communication&lt;/b>&lt;/p>&lt;/div>"
       },
       "extension": [
         {
