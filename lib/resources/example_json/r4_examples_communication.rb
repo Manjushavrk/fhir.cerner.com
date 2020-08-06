@@ -105,12 +105,16 @@ module Cerner
         }
       ],
       "status": "completed",
-      "category": [{ 	
-          "coding": [{
+      "category": [
+        {
+          "coding": [
+            {
               "system": "http://terminology.hl7.org/CodeSystem/communication-category",
               "code": "reminder"
-          }]
-      }],
+            }
+          ]
+        }
+      ],
       "priority": "urgent",
       "subject": { 
           "reference": "Patient/234455"
@@ -132,12 +136,14 @@ module Cerner
       "sender": {
           "reference": "Practitioner/3464537365"
       },
-      "payload": [{ 
+      "payload": [
+        { 
           "contentAttachment": { 
               "contentType": "text/plain",
               "data": "Y29tbXVuaWNhaXRvbkA="
           }
-      }]
+        }
+      ]
     }  
   end
 end

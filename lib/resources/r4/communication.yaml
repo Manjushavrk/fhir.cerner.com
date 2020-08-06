@@ -22,7 +22,7 @@ fields:
   description: The status of the Communication.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.status
   action: create
-  note: All Communications must be in "completed" status.
+  note: All Communications must be in 'completed' status.
   example: |
     {
       "status": "completed"
@@ -60,7 +60,7 @@ fields:
   description: The priority of the Communication.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.priority
   action: create
-  note: Only "routine" and "high" priorities are supported. If another priority value is provided, it will be treated as "routine".
+  note: Only 'routine' and 'high' priorities are supported. If another priority value is provided, it will be treated as 'routine'.
   example: |
     {
       "priority": "routine"
@@ -117,7 +117,7 @@ fields:
   required: 'Yes'
   cardinality: 1..*
   type: Reference (Practitioner, Group)
-  description: The Practitioner or Group that the communication is intended to reach
+  description: The Practitioner or Group that the Communication is intended to reach.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.recipient
   note: At least one recipient needs to be provided.
   example: |
@@ -154,9 +154,9 @@ fields:
   required: 'Yes'
   cardinality: 1..1
   type: BackboneElement
-  description: The message content of the communication
+  description: The text of the Communication.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.payload
-  note: The content must be supplied as a contentAttachment with contentType and data defined.  For contentType, application/xhtml+xml or text/plain are supported, and data should be base64 encoded.
+  note: The content must be supplied as a contentAttachment with contentType and data defined. For contentType, application/xhtml+xml or text/plain are supported, and data should be base64 encoded.
   example: |
     {
       "payload" : [
@@ -174,7 +174,7 @@ fields:
   terminology_name: extension[x].valueCodeableConcept
   required: 'No'
   type: CodeableConcept
-  description: Status extension for Communication
+  description: Status extension for the Communication.
   action: create
   example: |
     {
@@ -190,7 +190,7 @@ fields:
     }
   url: https://fhir-ehr.cerner.com/r4/StructureDefinition/email-status?_format=json
   binding:
-    description: A status extension for Communication.
+    description: A status extension for the Communication.
     terminology:
     - display: Communication Email Status Extension
       system: http://hl7.org/fhir/task-status
