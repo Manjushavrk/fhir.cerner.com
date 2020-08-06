@@ -50,7 +50,6 @@ Search for Communications that meet supplied query parameters:
 _Implementation Notes_
 
 * The Content of a communication will be returned through the Binary Resource. A reference to the payload will be provided in the Payload section.
-* All Coding Querys are also Messages. A search for the category of Messages will return Coding Queries as part of the response bundle. A search for the category of Coding Queries will return items that have both the category of Coding Query and Message.
 * Only 1000 elements max will be returned based in the date range.
 
 ### Authorization Types
