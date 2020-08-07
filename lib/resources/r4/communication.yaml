@@ -94,15 +94,14 @@ fields:
          "text": "Patient Consult Request"
       }
     }
-  action:
-    - create
+  action: create
 
 - name: encounter
   required: 'No'
   cardinality: 0..1
   type: Reference (Encounter)
   note: Encounter must be supplied with Subject.
-  description: The specific Patient Encounter associated to the Communcation.
+  description: The specific Patient Encounter associated to the Communication.
   url: https://hl7.org/fhir/r4/communication-definitions.html#Communication.encounter
   example: |
     {
@@ -110,8 +109,7 @@ fields:
         "reference" : "Encounter/89363836"
       }
     }
-  action:
-    - create
+  action: create
 
 - name: recipient
   required: 'Yes'
@@ -127,12 +125,11 @@ fields:
           "reference" : "Practitioner/6373634"
         },
         {
-          "reference" : "Group/44466678""
+          "reference" : "Group/44466678"
         }
       ]
     }
-  action:
-      - create
+  action: create
 
 - name: sender
   required: 'Yes'
@@ -147,8 +144,7 @@ fields:
         "reference": "Practitioner/631923"
       }
     }
-  action:
-    - create
+  action: create
 
 - name: payload
   required: 'Yes'
@@ -174,7 +170,7 @@ fields:
   terminology_name: extension[x].valueCodeableConcept
   required: 'No'
   type: CodeableConcept
-  description: The status of the email.  May be received, in-progress or completed.
+  description: The status of the email. May be received, in-progress or completed.
   action: create
   example: |
     {
@@ -190,8 +186,23 @@ fields:
     }
   url: https://fhir-ehr.cerner.com/r4/StructureDefinition/email-status?_format=json
   binding:
-    description: The status of the email.  May be received, in-progress or completed.
+    description: The status of the email. May be received, in-progress or completed.
     terminology:
     - display: Communication Email Status Extension
       system: http://hl7.org/fhir/task-status
       info_link: https://www.hl7.org/fhir/r4/valueset-task-status.html
+
+- name: Communication ReplyTo Extension
+  terminology_name: extension[x].valueReference
+  required: 'No'
+  type: Reference (Group)
+  description: A reference to a Group recipient that the Communication is a reply to. 
+  action: create
+  example: |
+    {
+      "url": "https://fhir-ehr.cerner.com/r4/StructureDefinition/reply-to",
+      "valueReference": {
+        "reference": "Group/123"
+      }
+    }
+  url: https://fhir-ehr.cerner.com/r4/StructureDefinition/reply-to?_format=json
