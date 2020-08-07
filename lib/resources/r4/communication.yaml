@@ -30,7 +30,7 @@ fields:
     }
 
 - name: category
-  required: 'yes'
+  required: 'Yes'
   cardinality: 0..1
   type: CodeableConcept
   description: Codeable definition of the Communication type.
@@ -91,7 +91,7 @@ fields:
     }
 
 - name: topic
-  required: 'yes'
+  required: 'Yes'
   cardinality: 0..1
   type: code
   description: The topic of the Communication. Similar to the subject of an email
