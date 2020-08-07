@@ -196,7 +196,7 @@ fields:
   terminology_name: extension[x].valueReference
   required: 'No'
   type: Reference (Group)
-  description: A reference to a Group recipient that the Communication is a reply to. 
+  description: A reference to a Group that the recipient should reply to.
   action: create
   example: |
     {
